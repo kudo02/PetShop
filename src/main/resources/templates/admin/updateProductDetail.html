@@ -41,11 +41,6 @@
       font-weight: 900;
       margin-right: 5px;
     }
-
-    .centered {
-      display: flex;
-      justify-content: center;
-    }
   </style>
 </head>
 
@@ -70,41 +65,36 @@
       <div class="menu">
         <a href="#" class="active"> Menu</a>
         <a th:href="@{/admin/products}"><i class="fas fa-box-open"></i> Products</a>
-        <a th:href="@{/admin/detail}"><i class="fas fa-clipboard-list"></i>Product Detail</a>
+        <a th:href="@{/admin/detail}"><i class="fas fa-clipboard-list"></i>Product Details</a>
         <a th:href="@{/admin/user}"><i class="fas fa-users"></i> Users</a>
       </div>
     </div>
     <div class="col-md-9">
-      </br>
-      <div class="centered">
-        <a th:href="@{/admin/newProductDetail}" class="btn btn-primary btn-sm">Add new Product Detail</a>
-      </div>
-      </br>
-      <h2>Danh sách sản phẩm</h2>
+      <h2>Thêm sản phẩm mới</h2>
       <div class="table-responsive">
-        <table class="table">
-          <thead>
-          <tr>
-            <th>ID</th>
-            <th>Tên sản phẩm</th>
-            <th>Giá</th>
-            <th>Mô tả</th>
-            <th>Thao tác</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr th:each="product : ${list}">
-            <td th:text="${product.id}"></td>
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.price}"></td>
-            <td th:text="${product.descript}"></td>
-            <td>
-              <a th:href="@{/admin/update2}" class="btn btn-primary btn-sm">Sửa</a>
-              <a th:href="@{'/admin/detail/delete/' + ${product.id}}" class="btn btn-danger btn-sm">Xóa</a>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+        <form method="post" th:action="@{/admin/detail/update}">
+          <div>
+            <label for="id">ID</label>
+            <input type="text" id="id" name="id" required>
+          </div>
+          <div>
+            <label for="name">Tên sản phẩm:</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div>
+            <label for="descript">Mô tả:</label>
+            <input type="text" id="descript" name="descript" required>
+          </div>
+          <div>
+            <label for="price">Giá:</label>
+            <input type="number" id="price" name="price" required>
+          </div>
+          <div>
+            <label for="type1">Loại sản phẩm:</label>
+            <input type="text" id="type1" name="type1" required>
+          </div>
+          <button type="submit">Update</button>
+        </form>
 
       </div>
     </div>

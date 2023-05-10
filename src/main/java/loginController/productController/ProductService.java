@@ -12,6 +12,7 @@ public class ProductService {
     @Autowired
     private ProductRepository repo;
 
+
     public List<Product> listALl(){
         return (List<Product>) repo.findAll();
     }
@@ -31,5 +32,6 @@ public class ProductService {
     public void saveProduct(Product product){
         repo.save(product);
     }
+
 
 }

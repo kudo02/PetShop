@@ -2,10 +2,7 @@ package loginController.admin;
 
 import loginController.login.User;
 import loginController.login.UserRepository;
-import loginController.productController.Product;
-import loginController.productController.ProductDetail;
-import loginController.productController.ProductDetailRepository;
-import loginController.productController.ProductService;
+import loginController.productController.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -28,24 +26,27 @@ public class AdminController {
     @Autowired
     private ProductDetailRepository pro;
 
+    @Autowired
+    private ProductDetailService productDetailService;
 
-//    @RequestMapping(value = "/product")
-//    public String listProduct(Model model){
-//        List<Product> products = service.listALl();
-//        model.addAttribute("listProducts", products);
-//        return "admin/list-product";
-//    }
 
-    @GetMapping("/products")
-    public String getProducts(@RequestParam(defaultValue = "0") int page,
-                              @RequestParam(defaultValue = "10") int size,
-                              Model model) {
-        Page<Product> productPage = service.getProducts(PageRequest.of(page, size));
-        model.addAttribute("products", productPage.getContent());
-        model.addAttribute("currentPage", productPage.getNumber());
-        model.addAttribute("totalPages", productPage.getTotalPages());
+    @RequestMapping(value = "/products")
+    public String listProduct(Model model){
+        List<Product> products = service.listALl();
+        model.addAttribute("products", products);
         return "admin/list-product";
     }
+
+//    @GetMapping("/products")
+//    public String getProducts(@RequestParam(defaultValue = "0") int page,
+//                              @RequestParam(defaultValue = "10") int size,
+//                              Model model) {
+//        Page<Product> productPage = service.getProducts(PageRequest.of(page, size));
+//        model.addAttribute("products", productPage.getContent());
+//        model.addAttribute("currentPage", productPage.getNumber());
+//        model.addAttribute("totalPages", productPage.getTotalPages());
+//        return "admin/list-product";
+//    }
 
     @GetMapping("/user")
     public String getUsers(Model model){
@@ -100,4 +101,40 @@ public class AdminController {
         pro.save(product);
         return "redirect:/admin/detail";
     }
+
+    @GetMapping("/update")
+    public String update(){
+        return "admin/updateProduct";
+    }
+
+    @PostMapping("/products/update")
+    public String updateProduct(@RequestParam("id") Long id, @RequestParam("name") String name,
+    @RequestParam("price") String price, @RequestParam("type") String type, @RequestParam("age") Integer age){
+        Product product = service.findById(id);
+        product.setName(name);
+        product.setPrice(price);
+        product.setAge(age);
+        product.setType(type);
+        service.saveProduct(product);
+        return "redirect:/admin/products";
+    }
+
+    @GetMapping("/update2")
+    public String update2(){
+        return "admin/updateProductDetail";
+    }
+
+    @PostMapping("/detail/update")
+    public String updateProductDetail(@RequestParam("id") Long id, @RequestParam("name") String name,
+                                @RequestParam("price") String price, @RequestParam("type1") String type, @RequestParam("descript") String descript){
+        Optional<ProductDetail> product = pro.findById(id);
+        product.get().setName(name);
+        product.get().setPrice(price);
+        product.get().setType1(type);
+        product.get().setDescript(descript);
+        productDetailService.save(product);
+        return "redirect:/admin/detail";
+    }
+
+
 }

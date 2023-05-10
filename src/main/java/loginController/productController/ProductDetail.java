@@ -10,12 +10,19 @@ public class ProductDetail {
     private Long id;
     @Column(name = "name2", nullable = false)
     private String name;
-    @Column(name = "price", nullable = false)
-    private String price;
+
     @Column(name = "src", nullable = false)
     private String src;
+
     @Column(name = "descript", nullable = false)
     private String descript;
+
+    @Column(name = "price", nullable = false)
+    private String price;
+
+    @Column(name = "type1", nullable = false)
+    private String type1;
+
 
     public Long getId() {
         return id;
@@ -55,5 +62,13 @@ public class ProductDetail {
 
     public void setDescript(String descript) {
         this.descript = descript;
+    }
+
+    public String getType1() {
+        return type1;
+    }
+
+    public void setType1(String type1) {
+        this.type1 = type1;
     }
 }

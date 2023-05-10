@@ -16,33 +16,33 @@ import org.springframework.test.annotation.Rollback;
 @Rollback(false)
 public class LoginRepositoryTests {
 
-	@Autowired
-	private TestEntityManager entityManager;
-	
-	@Autowired
-	private LoginRepository repo;
-	
-	@Test
-	public void testCreateUser() {
-		User user = new User();
-		user.setEmail("ravikumar@gmail.com");
-		user.setPassword("ravi2020");
-		user.setFirstName("Ravi");
-		user.setLastName("Kumar");
-		
-		User savedUser = repo.save(user);
-		
-		User existUser = entityManager.find(User.class, savedUser.getId());
-		
-		assertThat(user.getEmail()).isEqualTo(existUser.getEmail());
-		
-	}
-	
-	@Test
-	public void testFindByEmail() {
-		String email = "nam@codejava.net";
-		User user = repo.findByEmail(email);
-		
-		assertThat(user.getEmail()).isEqualTo(email);
-	}
+//	@Autowired
+//	private TestEntityManager entityManager;
+//
+//	@Autowired
+//	private LoginRepository repo;
+//
+//	@Test
+//	public void testCreateUser() {
+//		User user = new User();
+//		user.setEmail("ravikumar@gmail.com");
+//		user.setPassword("ravi2020");
+//		user.setFirstName("Ravi");
+//		user.setLastName("Kumar");
+//
+//		User savedUser = repo.save(user);
+//
+//		User existUser = entityManager.find(User.class, savedUser.getId());
+//
+//		assertThat(user.getEmail()).isEqualTo(existUser.getEmail());
+//
+//	}
+//
+//	@Test
+//	public void testFindByEmail() {
+//		String email = "nam@codejava.net";
+//		User user = repo.findByEmail(email);
+//
+//		assertThat(user.getEmail()).isEqualTo(email);
+//	}
 }

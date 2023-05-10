@@ -14,4 +14,9 @@ public class ProductDetailService {
     public Optional<ProductDetail> findById(Long id){
         return repo.findById(id);
     }
+
+    public ProductDetail save(Optional<ProductDetail> productDetail1){
+        return repo.save(productDetail1.get());
+    }
+
 }
