@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <title>Trang quản trị</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <style>
+        .menu {
+            background-color: #343a40;
+            width: 80%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+            align-items: center;
+            /* text-align: center; */
+        }
+
+        .menu a {
+            color: white;
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            margin: 10px 0;
+        }
+
+        .menu a:hover {
+            background-color: #212529;
+        }
+
+        .menu a:first-child:before {
+            content: "\f0c9";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            margin-right: 5px;
+        }
+
+         .centered {
+             display: flex;
+             justify-content: center;
+         }
+
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Tên trang quản trị</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto"></ul>
+        <span class="navbar-text">
+                Xin chào, <strong>Người dùng</strong> | <a th:href="@{/logout}">Đăng xuất</a>
+            </span>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="menu">
+                <a href="#" class="active"> Menu</a>
+                <a th:href="@{/admin/products}"><i class="fas fa-box-open"></i> Products</a>
+                <a th:href="@{/admin/detail}"><i class="fas fa-clipboard-list"></i>Product Details</a>
+                <a th:href="@{/admin/user}"><i class="fas fa-users"></i> Users</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            </br>
+            <div class="centered">
+                <a th:href="@{/admin/newProduct}" class="btn btn-primary btn-sm">Add new Product</a>
+            </div>
+            </br>
+            <h2>Danh sách sản phẩm</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Tuổi</th>
+                        <th>Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.id}"></td>
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${product.price}"></td>
+                        <td th:text="${product.getAge()}"></td>
+                        <td>
+                            <a href="#" class="btn btn-primary btn-sm">Sửa</a>
+                            <a th:href="@{'/admin/products/delete/' + ${product.id}}" class="btn btn-danger btn-sm">Xóa</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>
