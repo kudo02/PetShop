@@ -96,7 +96,6 @@
             <td th:text="${user.getLastName()}"></td>
             <td th:text="${user.getPassword()}"></td>
             <td>
-              <a href="#" class="btn btn-primary btn-sm">Sửa</a>
               <a th:href="@{'/admin/user/delete/' + ${user.id}}" class="btn btn-danger btn-sm">Xóa</a>
             </td>
           </tr>
