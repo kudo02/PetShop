@@ -48,9 +48,9 @@ public class ShoppingCartRestController {
                            RedirectAttributes redirectAttributes,
                            HttpSession session) {
         User user = userRepository.findByEmail(authentication.getName());
-        Long userIdId = user.getId();
+        Long userId = user.getId();
 
-        cartService.deleteCartItemsByUserId(userIdId);
+        cartService.deleteCartItemsByUserId(userId);
 //        String mess = "Đặt hàng thành công";
 //        session.setAttribute("cartMess", mess);
         return "redirect:/view";
