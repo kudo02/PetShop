@@ -56,7 +56,7 @@ public class CartItem {
 
     @Transient
     public float getSubtotal() {
-        float price = Float.parseFloat(this.product.getPrice());
+        float price = this.product.getPrice();
         return price * quantity;
     }
 }

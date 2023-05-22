@@ -74,18 +74,70 @@ public class AppController {
 
     @GetMapping("/list")
     public String search(@RequestParam(name = "query", required = false)String query,
+                         @RequestParam(name = "species", required = false) String species,
                          @RequestParam(name = "type", required = false) String type,
                          @RequestParam(name = "age", required = false) Integer age,
+                         @RequestParam(name = "price", required = false) String price,
                          Model model){
         List<Product> products;
         if(query != null && !query.isEmpty()){
             products = pro.findByNameContainingIgnoreCase(query);
-        } else if (type != null && !type.isEmpty()) {
+            System.out.println(1);
+        } else if (species != null && age != null && price != null && type != null) {
+            // Tìm kiếm theo tất cả các thuộc tính
+            String[] priceRange = price.split("-");
+            int minPrice = Integer.parseInt(priceRange[0]);
+            int maxPrice = Integer.parseInt(priceRange[1]);
+            products = service.searchProductsByTypeAndAgeAndPrice(species,type,age,minPrice,maxPrice);
+            System.out.println(2);
+        }else if (species != null && !species.isEmpty() && type != null && !type.isEmpty()) {
+            products = pro.findBySpeciesAndType(species, type);
+            System.out.println(3);
+        }else if (species != null && !species.isEmpty() && age > 0 && age != null) {
+            products = pro.findBySpeciesAndAge(species, age);
+            System.out.println(species);
+            System.out.println(age);
+            System.out.println(4);
+        }else if (species != null && !species.isEmpty() && price != null) {
+            String[] priceRange = price.split("-");
+            int minPrice = Integer.parseInt(priceRange[0]);
+            int maxPrice = Integer.parseInt(priceRange[1]);
+            products = pro.findBySpeciesAndPriceBetween(species, minPrice, maxPrice);
+            System.out.println(5);
+        }else if (type != null && !type.isEmpty() && age != null && age > 0) {
+            products = pro.findByTypeAndAge(type, age);
+            System.out.println(6);
+        }else if (type != null && !type.isEmpty() && price != null) {
+            String[] priceRange = price.split("-");
+            int minPrice = Integer.parseInt(priceRange[0]);
+            int maxPrice = Integer.parseInt(priceRange[1]);
+            products = pro.findByTypeAndPriceBetween(type, minPrice, maxPrice);
+            System.out.println(7);
+        }else if (age != null && age > 0 && price != null) {
+            String[] priceRange = price.split("-");
+            int minPrice = Integer.parseInt(priceRange[0]);
+            int maxPrice = Integer.parseInt(priceRange[1]);
+            products = pro.findByAgeAndPriceBetween(age, minPrice, maxPrice);
+            System.out.println(8);
+        }
+        else if (species != null && !species.isEmpty()) {
+            products = pro.findBySpeciesContainingIgnoreCase(species);
+            System.out.println(9);
+        }else if (type != null && !type.isEmpty()) {
             products = pro.findByTypeContainingIgnoreCase(type);
-        } else if (age != null && age > 0) {
+            System.out.println(10);
+        }else if (age != null && age > 0) {
             products = pro.findByAge(age);
+            System.out.println(11);
+        }else if (price != null) {
+            String[] priceRange = price.split("-");
+            int minPrice = Integer.parseInt(priceRange[0]);
+            int maxPrice = Integer.parseInt(priceRange[1]);
+            products = pro.findByPriceBetween(minPrice, maxPrice);
+            System.out.println(12);
         }else{
             products = pro.findAll();
+            System.out.println(13);
         }
         model.addAttribute("products", products);
         return "listProduct";

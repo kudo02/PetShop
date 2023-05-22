@@ -112,7 +112,7 @@ public class AdminController {
     @RequestParam("price") String price, @RequestParam("type") String type, @RequestParam("age") Integer age){
         Product product = service.findById(id);
         product.setName(name);
-        product.setPrice(price);
+        product.setPrice(Integer.valueOf(price));
         product.setAge(age);
         product.setType(type);
         service.saveProduct(product);

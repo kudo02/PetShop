@@ -19,7 +19,7 @@ public class ProductService {
 
     public Product findById(Long id) {
         return repo.findById(Long.valueOf(id)).orElse(null);
-    }
+    };
 
     public Page<Product> getProducts(Pageable pageable) {
         return repo.findAll(pageable);
@@ -34,4 +34,7 @@ public class ProductService {
     }
 
 
+    public List<Product> searchProductsByTypeAndAgeAndPrice(String species,String type, Integer age, int minPrice, int maxPrice) {
+        return repo.findBySpeciesAndTypeAndAgeAndPriceBetween(species ,type, age, minPrice, maxPrice);
+    }
 }

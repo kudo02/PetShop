@@ -10,14 +10,18 @@ public class Product {
     private Long id;
     @Column(name = "name1", nullable = false)
     private String name;
+
     @Column(name = "type1")
+    private String species;
+
+    @Column(name = "kieu")
     private String type;
     @Column(name = "src", nullable = false)
     private String src;
     @Column(name = "age")
     private int age;
     @Column(name = "price", nullable = false)
-    private String price;
+    private Integer price;
 
     public Long getId() {
         return id;
@@ -59,11 +63,19 @@ public class Product {
         this.age = age;
     }
 
-    public String getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(String species) {
+        this.species = species;
     }
 }
