@@ -107,6 +107,25 @@
         </table>
 
       </div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" th:if="${currentPage > 1}">
+            <a class="page-link" th:href="@{'?pageNo=' + ${currentPage - 1}}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+          <li class="page-item" th:each="i: ${#numbers.sequence(1,4)}"
+              th:classappend="${currentPage == i ? 'active': ''}"><a class="page-link" th:href="@{'?pageNo=' + ${i}}"
+                                                                     th:text="${i}">1</a></li>
+          <li class="page-item" th:if="${currentPage < totalPage}">
+            <a class="page-link" th:href="@{'?pageNo=' + ${currentPage + 1}}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 

@@ -31,22 +31,14 @@ public class AdminController {
 
 
     @RequestMapping(value = "/products")
-    public String listProduct(Model model){
-        List<Product> products = service.listALl();
+    public String listProduct(Model model, @RequestParam(name = "pageNo", defaultValue = "1") Integer page){
+        Page<Product> products = service.getProducts(page);
+
+        model.addAttribute("totalPage", products.getTotalPages());
+        model.addAttribute("currentPage", page);
         model.addAttribute("products", products);
         return "admin/list-product";
     }
-
-//    @GetMapping("/products")
-//    public String getProducts(@RequestParam(defaultValue = "0") int page,
-//                              @RequestParam(defaultValue = "10") int size,
-//                              Model model) {
-//        Page<Product> productPage = service.getProducts(PageRequest.of(page, size));
-//        model.addAttribute("products", productPage.getContent());
-//        model.addAttribute("currentPage", productPage.getNumber());
-//        model.addAttribute("totalPages", productPage.getTotalPages());
-//        return "admin/list-product";
-//    }
 
     @GetMapping("/user")
     public String getUsers(Model model){
@@ -56,8 +48,11 @@ public class AdminController {
     }
 
     @GetMapping("/detail")
-    public String getDetail(Model model){
-        List<ProductDetail> detailList = pro.findAll();
+    public String getDetail(Model model, @RequestParam(name = "pageNo", defaultValue = "1") Integer page){
+        Page<ProductDetail> detailList = productDetailService.getProductDetails(page);
+
+        model.addAttribute("totalPage", detailList.getTotalPages());
+        model.addAttribute("currentPage", page);
         model.addAttribute("list", detailList);
         return "admin/list-product-detail";
     }

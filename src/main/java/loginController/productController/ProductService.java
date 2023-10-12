@@ -2,6 +2,7 @@ package loginController.productController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,8 @@ public class ProductService {
         return repo.findById(Long.valueOf(id)).orElse(null);
     };
 
-    public Page<Product> getProducts(Pageable pageable) {
+    public Page<Product> getProducts(Integer pageNo) {
+        Pageable pageable = PageRequest.of(pageNo - 1, 9);
         return repo.findAll(pageable);
     }
 
